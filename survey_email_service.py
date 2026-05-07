@@ -64,6 +64,35 @@ OGGETTO_EMAIL = "La tua opinione sulle selezioni ASTRA 📋"
 
 
 # ==========================================
+# 🔐  VERIFICA CREDENZIALI (eseguita all'avvio)
+# ==========================================
+
+def _verifica_credenziali() -> bool:
+    """
+    Controlla che EMAIL_ASTRA e PASSWORD_ASTRA siano presenti nel .env.
+    Restituisce False e stampa un messaggio chiaro se mancano.
+    """
+    errori = []
+    if not IL_TUO_INDIRIZZO_EMAIL:
+        errori.append("EMAIL_ASTRA non trovata nel file .env")
+    if not LA_TUA_PASSWORD:
+        errori.append("PASSWORD_ASTRA non trovata nel file .env")
+
+    if errori:
+        print("\n❌ Credenziali mancanti. Impossibile procedere:")
+        for e in errori:
+            print(f"   • {e}")
+        print("\n💡 Controlla che il file .env esista nella cartella del progetto")
+        print("   e contenga le righe:")
+        print("       EMAIL_ASTRA=tua@email.com")
+        print("       PASSWORD_ASTRA=la-tua-app-password")
+        print("   Usa una App Password Gmail, NON la password normale.")
+        print("   Guida: https://support.google.com/accounts/answer/185833\n")
+        return False
+    return True
+
+
+# ==========================================
 # 📖  LETTURA DESTINATARI DA CSV
 # ==========================================
 
@@ -96,6 +125,9 @@ def crea_bozze_questionario(destinatari: list[dict]) -> None:
     Si connette a Gmail via IMAP e crea una bozza personalizzata
     per ogni destinatario nella lista.
     """
+    if not _verifica_credenziali():
+        return
+
     if not destinatari:
         print("⚠️  Nessun destinatario da elaborare. Operazione annullata.")
         return
@@ -150,8 +182,10 @@ def crea_bozze_questionario(destinatari: list[dict]) -> None:
         if not CREA_SOLO_BOZZE_DI_PROVA:
             print("   Vai su Gmail → Bozze per rivedere e inviare le email.")
 
-    except imaplib.IMAP4.error:
-        print("❌ Errore di autenticazione. Controlla EMAIL_ASTRA e PASSWORD_ASTRA nel file .env.")
+    except imaplib.IMAP4.error as e:
+        print(f"❌ Errore di autenticazione: {e}")
+        print("   Assicurati di usare una App Password Gmail (non la password normale).")
+        print("   Guida: https://support.google.com/accounts/answer/185833")
     except Exception as e:
         print(f"❌ Errore imprevisto: {e}")
 
