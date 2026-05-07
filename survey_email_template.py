@@ -6,12 +6,12 @@ from config import URL_LOGO
 
 LINK_QUESTIONARIO = "https://tally.so/r/SOSTITUISCI_CON_IL_TUO_LINK"  # ⚠️ Sostituisci con il link reale al tuo form
 
-# Palette personalizzata
-COLORE_PRIMARIO = "#9D84C6"
-COLORE_SECONDARIO = "#4A3B69"
-COLORE_SFONDO = "#F4F4F9"
-COLORE_SFONDO_CARD = "#FFFFFF"
-COLORE_TESTO = "#333333"
+# Palette (stessa delle altre email)
+colore_primario = "#9D84C6"
+colore_secondario = "#4A3B69"
+colore_sfondo = "#F4F4F9"
+colore_sfondo_card = "#FFFFFF"
+colore_testo = "#333333"
 
 
 def genera_email_questionario(nome: str) -> str:
@@ -28,107 +28,70 @@ def genera_email_questionario(nome: str) -> str:
     nome_breve = nome.split()[0] if nome else "candidato"
 
     html = f"""
-    <!DOCTYPE html>
-    <html lang="it">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Questionario Recruit – Team ASTRA</title>
-    </head>
-    <body style="margin:0; padding:0; background-color:{COLORE_SFONDO}; font-family: Arial, sans-serif;">
+    <html>
+    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: {colore_testo}; line-height: 1.6; margin: 0; padding: 20px; background-color: {colore_sfondo};">
+        <div style="max-width: 600px; margin: 0 auto; background-color: {colore_sfondo_card}; padding: 40px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.05); border-top: 6px solid {colore_primario};">
 
-      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{COLORE_SFONDO}; padding: 32px 16px;">
-        <tr>
-          <td align="center">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <img src="{URL_LOGO}" alt="Logo Team ASTRA" style="max-width: 150px; height: auto; border: none;">
+            </div>
 
-            <table role="presentation" width="600" cellpadding="0" cellspacing="0"
-                   style="background:{COLORE_SFONDO_CARD}; border-radius:12px; overflow:hidden;
-                          box-shadow: 0 4px 16px rgba(74,59,105,0.12); max-width:600px; width:100%;">
+            <h1 style="color: {colore_secondario}; text-align: center; font-size: 22px; margin-bottom: 20px;">
+                La tua opinione conta, {nome_breve}! 📋
+            </h1>
 
-              <tr>
-                <td align="center" style="background: linear-gradient(135deg, {COLORE_PRIMARIO} 0%, {COLORE_SECONDARIO} 100%);
-                           padding: 32px 24px;">
-                  <img src="{URL_LOGO}" alt="Logo Team ASTRA" width="80" height="80"
-                       style="border-radius:50%; border: 3px solid rgba(255,255,255,0.25); display:block; background:#ffffff;">
-                  <p style="color:#ffffff; font-size:20px; font-weight:bold; margin:16px 0 4px;
-                            letter-spacing:2px; text-transform:uppercase;">Team ASTRA</p>
-                  <p style="color:rgba(255,255,255,0.78); font-size:13px; margin:0;
-                            letter-spacing:1px;">Politecnico di Torino</p>
-                </td>
-              </tr>
+            <p style="font-size: 16px;">Ciao <strong>{nome_breve}</strong>,</p>
 
-              <tr>
-                <td style="padding: 40px 40px 32px;">
+            <p style="font-size: 16px;">
+                Grazie per aver partecipato alle selezioni del <strong>Team ASTRA</strong>!
+                Indipendentemente dall'esito, il tuo percorso durante il recruit è stato prezioso per noi.
+            </p>
 
-                  <h2 style="color:{COLORE_SECONDARIO}; font-size:22px; margin:0 0 16px; font-weight:700;">
-                    La tua opinione conta, {nome_breve}! 📋
-                  </h2>
+            <p style="font-size: 16px;">
+                Per aiutarci a migliorare il processo di selezione nelle edizioni future,
+                ti chiediamo di dedicare <strong>5 minuti</strong> alla compilazione di un breve
+                questionario anonimo.
+            </p>
 
-                  <p style="color:{COLORE_TESTO}; font-size:15px; line-height:1.7; margin:0 0 16px;">
-                    Grazie per aver partecipato alle selezioni del <strong>Team ASTRA</strong>!
-                    Indipendentemente dall'esito, il tuo percorso durante il recruit è stato
-                    prezioso per noi.
-                  </p>
+            <div style="background-color: #F9F6FE; border-left: 4px solid {colore_primario}; padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 24px 0; color: {colore_secondario};">
+                🎯 <strong>Cosa ci aiuta a migliorare:</strong> chiarezza delle prove,
+                organizzazione dei colloqui, comunicazione e gestione dei tempi.
+            </div>
 
-                  <p style="color:{COLORE_TESTO}; font-size:15px; line-height:1.7; margin:0 0 24px;">
-                    Per aiutarci a migliorare il processo di selezione nelle edizioni future,
-                    ti chiediamo di dedicare <strong>5 minuti</strong> alla compilazione di un breve
-                    questionario anonimo.
-                  </p>
-
-                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
-                         style="background:#EFEAF7; border-left:4px solid {COLORE_PRIMARIO};
-                                border-radius:0 8px 8px 0; margin-bottom:28px;">
-                    <tr>
-                      <td style="padding:16px 20px;">
-                        <p style="color:{COLORE_SECONDARIO}; font-size:14px; line-height:1.6; margin:0;">
-                          🎯 <strong>Cosa ci aiuta a migliorare:</strong> chiarezza delle prove,
-                          organizzazione dei colloqui, comunicazione e gestione dei tempi.
-                        </p>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <table role="presentation" cellpadding="0" cellspacing="0" style="margin: 0 auto 32px;">
-                    <tr>
-                      <td align="center">
-                        <a href="{LINK_QUESTIONARIO}"
-                           style="display:inline-block; background:{COLORE_SECONDARIO};
-                                  color:#ffffff; text-decoration:none; font-size:15px; font-weight:bold;
-                                  padding:14px 36px; border-radius:8px;
-                                  letter-spacing:0.5px; box-shadow: 0 4px 12px rgba(74,59,105,0.18);">
-                          Compila il Questionario →
-                        </a>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <p style="color:{COLORE_TESTO}; font-size:13px; line-height:1.6; margin:0 0 8px; text-align:center; opacity:0.85;">
-                    Il questionario è <strong>anonimo</strong> e richiede circa 5 minuti.
-                  </p>
-                  <p style="color:{COLORE_TESTO}; font-size:12px; margin:0; text-align:center; opacity:0.7;">
-                    Se il pulsante non funziona, copia e incolla questo link nel browser:<br>
-                    <a href="{LINK_QUESTIONARIO}" style="color:{COLORE_PRIMARIO}; word-break:break-all;">{LINK_QUESTIONARIO}</a>
-                  </p>
-
-                </td>
-              </tr>
-
-              <tr>
-                <td style="background:#F8F7FC; padding:20px 40px; border-top:1px solid #E6E0F0;">
-                  <p style="color:{COLORE_TESTO}; font-size:12px; margin:0; text-align:center; line-height:1.6; opacity:0.65;">
-                    © 2025 Team ASTRA – Politecnico di Torino<br>
-                    Hai ricevuto questa email perché hai partecipato alle selezioni del Team ASTRA.
-                  </p>
-                </td>
-              </tr>
-
+            <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 28px 0 24px;">
+                <tr>
+                    <td align="center">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td align="center" bgcolor="{colore_primario}" style="background-color: {colore_primario}; border-radius: 6px;">
+                                    <a href="{LINK_QUESTIONARIO}" target="_blank"
+                                       style="font-size: 15px; font-family: Arial, sans-serif; font-weight: bold;
+                                              color: #ffffff; text-decoration: none; border-radius: 6px;
+                                              padding: 12px 28px; border: 1px solid {colore_primario}; display: inline-block;">
+                                        Compila il Questionario →
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
 
-          </td>
-        </tr>
-      </table>
+            <p style="font-size: 13px; text-align: center; color: #888888; margin: 0 0 8px;">
+                Il questionario è <strong>anonimo</strong> e richiede circa 5 minuti.
+            </p>
+            <p style="font-size: 12px; text-align: center; color: #aaaaaa; margin: 0;">
+                Se il pulsante non funziona, copia e incolla questo link nel browser:<br>
+                <a href="{LINK_QUESTIONARIO}" style="color: {colore_primario}; word-break: break-all;">{LINK_QUESTIONARIO}</a>
+            </p>
 
+            <hr style="border: 0; border-top: 1px solid #eeeeee; margin: 30px 0;">
+
+            <div style="text-align: center; font-size: 15px;">
+                <strong style="color: {colore_primario}; font-size: 18px; display: inline-block; margin-top: 10px;">Team ASTRA</strong>
+            </div>
+
+        </div>
     </body>
     </html>
     """
